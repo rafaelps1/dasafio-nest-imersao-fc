@@ -1,0 +1,14 @@
+GET http://localhost:3000
+
+###
+GET http://localhost:3000/api/routes
+
+###
+POST http://localhost:3000/api/routes
+Content-Type: application/json
+
+{
+    "name": "Test Second Route",
+    "source": { "lat": 1, "lng": 2},
+    "destination": { "lat": 2, "lng": 1}
+}

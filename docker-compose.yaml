@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: nest
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: bitnami/mongodb:5.0.17
+    volumes:
+      - mongodb_datas:/bitnami/mongodb
+    environment:
+      MONGODB_ROOT_PASSWORD: root
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: nest
+    depends_on:
+      - app
+
+volumes:
+  node_modules:
+    driver: local
+  mongodb_datas:
+    driver: local
+
